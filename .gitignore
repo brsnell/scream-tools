@@ -1,0 +1,4 @@
+# Local outputs from trying the tool on the fixtures
+tests/fixtures/*/docs/
+*.class
+.DS_Store

@@ -1,0 +1,14 @@
+{
+  "name": "scream-ai-tools",
+  "owner": { "name": "SCREAM AI Tools contributors" },
+  "metadata": {
+    "description": "Claude Code tools for FRC robot code teams."
+  },
+  "plugins": [
+    {
+      "name": "scream-ai-tools",
+      "source": "./plugins/scream-ai-tools",
+      "description": "SCREAM AI Tools: Claude Code skills for FRC robot code. Includes /frc-visualize-code, which maps a WPILib Java project from Robot.java into an interactive HTML page and SVG diagrams."
+    }
+  ]
+}
