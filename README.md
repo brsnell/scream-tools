@@ -3,6 +3,10 @@
 Free, open-source [Claude Code](https://code.claude.com) tools for FRC robot programming teams.
 Use them, fork them, change them — they are MIT licensed.
 
+Each tool runs **with Claude Code** as a slash command, or **without Claude Code** as a plain
+program — see [Use with Claude Code](#use-with-claude-code) and
+[Use without Claude Code](#use-without-claude-code).
+
 | Tool | Slash command | What it does |
 | --- | --- | --- |
 | **frc-visualize-code** | `/frc-visualize-code` | Maps a WPILib Java robot project, starting from `Robot.java`, into an interactive HTML page and SVG diagrams: classes, mechanisms, commands, libraries, controller bindings and default commands. |
@@ -17,7 +21,7 @@ Use them, fork them, change them — they are MIT licensed.
 
 *Screenshots are of the small example robot in `tests/fixtures/v2-command-robot`.*
 
-Run it in your robot project and it writes `docs/projVisu/`:
+Run it in your robot project, with or without Claude Code, and it writes `docs/projVisu/`:
 
 | File | Contents |
 | --- | --- |
@@ -60,9 +64,26 @@ It reads source text only. It never compiles or runs robot code. So:
 - Libraries you pull in as jars (WPILib, vendor libraries) are not drawn; libraries whose source is
   in your repository are.
 
-## Install
+## Requirements (both ways)
 
-### As a Claude Code plugin (recommended)
+- A **JDK 17 or newer**. The WPILib installer already gives you one. The launcher script looks for
+  the WPILib JDK first (`~/wpilib/<year>/jdk`, `~/.local/share/wpilib/<year>/jdk`,
+  `C:\Users\Public\wpilib\<year>\jdk`), then `JAVA_HOME`, then `java` on your `PATH`. Set
+  `FRC_VISUALIZE_JAVA` to force a specific `java`.
+- The JDK must be at least as new as the Java your robot code uses. WPILib's own JDK always is.
+- On Windows, run the launcher through Git Bash (Claude Code on Windows already uses it), or call
+  `java` directly as shown below.
+
+---
+
+## Use with Claude Code
+
+The slash command runs the same program, then reads the result and reports on it: framework and
+counts, any warnings, and things worth a look, such as the same button bound twice, a binding whose
+mechanisms it could not identify, or a mechanism no button or default command reaches. It does
+not edit robot code and does not commit unless you ask.
+
+### Install as a plugin (recommended)
 
 In Claude Code:
 
@@ -80,30 +101,61 @@ Then, in your robot project:
 Plugin skills are namespaced by the plugin name. Claude Code may also accept the short form
 `/frc-visualize-code` when nothing else has that name.
 
-### As a standalone skill in one project
+### Or copy the skill into one project
 
 Copy `plugins/scream-ai-tools/skills/frc-visualize-code/` into your robot project at
 `.claude/skills/frc-visualize-code/`. It then runs as `/frc-visualize-code`.
 
-### Without Claude Code
+---
+
+## Use without Claude Code
+
+The tool itself does not use AI. It is a plain Java program, so you can run it on any laptop or
+CI machine with no account, no API key and no internet connection.
+
+### On your laptop
+
+Clone or download this repository once, then from your robot project folder:
 
 ```bash
-# from your robot project folder
+# macOS, Linux, or Git Bash on Windows (finds the WPILib JDK for you)
 path/to/scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/run.sh
-# or directly, with any JDK 17+
-java path/to/FrcVisualize.java --project . --out docs/projVisu
+
+# or anywhere, with any JDK 17+ on your PATH (works in Windows PowerShell too)
+java path/to/scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/FrcVisualize.java
 ```
 
-Options: `--project DIR` (default: current folder), `--out DIR` (default:
-`<project>/docs/projVisu`), `--root CLASS` (default: the class extending `TimedRobot`, or `Robot`).
+Then open `docs/projVisu/index.html` in a browser.
 
-### Requirements
+| Option | Default |
+| --- | --- |
+| `--project DIR` | the current folder |
+| `--out DIR` | `<project>/docs/projVisu` |
+| `--root CLASS` | the class extending `TimedRobot` (or named `Robot`) |
 
-- A **JDK 17 or newer**. The launcher looks for the WPILib JDK first (`~/wpilib/<year>/jdk`,
-  `~/.local/share/wpilib/<year>/jdk`, `C:\Users\Public\wpilib\<year>\jdk`), then `JAVA_HOME`, then
-  `java` on your `PATH`. Set `FRC_VISUALIZE_JAVA` to force a specific `java`.
-- Parse with a JDK at least as new as the Java your robot code uses (WPILib's own JDK always is).
-- On Windows, run through Git Bash. Claude Code on Windows already uses it.
+Exit codes: `0` done · `2` bad arguments or no Java sources · `3` no robot entry class found
+(pass `--root`) · `4` no JDK 17+ found.
+
+### Automatically, with GitHub Actions
+
+[`examples/github-actions/frc-visualize-code.yml`](examples/github-actions/frc-visualize-code.yml)
+keeps the map in your robot repository up to date. Copy it into your robot project as
+`.github/workflows/frc-visualize-code.yml`. On every push to `main` that changes robot code, it
+regenerates `docs/projVisu/` and commits the result. It uses no AI and needs no secrets.
+
+- The output is deterministic, so a push that does not change the map commits nothing.
+- If `main` is protected so that only pull requests can change it, the bot's push will be
+  rejected. Either allow GitHub Actions to push, or change the last step to upload
+  `docs/projVisu` as a build artifact instead.
+- The example uses the latest tool from `main`. To make sure the map only changes when your code
+  does, pin `ref:` to a commit SHA from this repository.
+
+**Publish it for your drive team.** With the map committed, turn on GitHub Pages in your robot
+repository (Settings → Pages → Deploy from a branch → `main`, folder `/docs`). The page is then at
+`https://<owner>.github.io/<repo>/projVisu/`, readable on a phone in the pits. GitHub Pages on a
+private repository needs a paid GitHub plan.
+
+---
 
 ## Develop
 

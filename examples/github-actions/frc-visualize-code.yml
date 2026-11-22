@@ -1,0 +1,71 @@
+# SCREAM AI Tools — keep a robot project's code map up to date, without AI.
+#
+# Copy this file into YOUR ROBOT PROJECT as .github/workflows/frc-visualize-code.yml.
+# On every push to main that changes robot code, it regenerates docs/projVisu/ (HTML page, SVG
+# diagrams, JSON) and commits the result if anything changed. No API key, no Claude.
+#
+# The map is deterministic: unchanged code gives byte-identical files, so a run whose code
+# changes do not affect the map commits nothing.
+#
+# Optional: publish the map. In the robot repo's Settings → Pages, choose "Deploy from a branch",
+# branch main, folder /docs. The page is then at https://<owner>.github.io/<repo>/projVisu/
+# (GitHub Pages on a private repository needs a paid GitHub plan).
+
+name: Code map
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/main/java/**"
+      - "build.gradle"
+      - ".github/workflows/frc-visualize-code.yml"
+  workflow_dispatch: # also lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write # to commit the regenerated map
+
+concurrency:
+  group: code-map-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the robot project
+        uses: actions/checkout@v4
+
+      - name: Check out SCREAM AI Tools
+        uses: actions/checkout@v4
+        with:
+          repository: brsnell/scream-ai-tools
+          # For a map that never changes because the tool changed, pin this to a commit SHA.
+          ref: main
+          path: .scream-ai-tools
+
+      - name: Set up a JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          # Must be at least the Java version your robot code is written in. 25 covers
+          # WPILib 2027; 17 is enough for WPILib 2024–2026.
+          java-version: "25"
+
+      - name: Generate the code map
+        run: |
+          java .scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/FrcVisualize.java \
+            --project . --out docs/projVisu
+          rm -rf .scream-ai-tools
+
+      - name: Commit the map if it changed
+        run: |
+          git add docs/projVisu
+          if git diff --cached --quiet; then
+            echo "Code map unchanged."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Update code map (docs/projVisu)"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
