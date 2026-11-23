@@ -4,7 +4,7 @@
 set -euo pipefail
 
 repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-run="$repo/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/run.sh"
+run="$repo/plugins/scream-tools/skills/frc-visualize-code/scripts/run.sh"
 fixtures="$repo/tests/fixtures"
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT

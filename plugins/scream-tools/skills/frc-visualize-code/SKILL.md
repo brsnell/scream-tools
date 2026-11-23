@@ -8,7 +8,7 @@ allowed-tools: Bash(${CLAUDE_SKILL_DIR}/scripts/run.sh *), Read, Glob
 
 # frc-visualize-code
 
-Part of **SCREAM AI Tools**. Produces a map of a robot project's code, from the perspective of
+Part of **SCREAM Tools**. Produces a map of a robot project's code, from the perspective of
 `Robot.java`:
 
 - `docs/projVisu/index.html` — interactive page: **Structure** (class diagram, click a class for its

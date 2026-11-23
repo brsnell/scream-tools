@@ -1,0 +1,7 @@
+{
+  "name": "scream-tools",
+  "version": "1.0.0",
+  "description": "SCREAM Tools: Claude Code skills for FRC robot code. Includes frc-visualize-code, which maps a WPILib Java project from Robot.java into an interactive HTML page and SVG diagrams.",
+  "license": "MIT",
+  "keywords": ["frc", "wpilib", "robotics", "first-robotics", "visualization", "java"]
+}

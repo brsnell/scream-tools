@@ -1,4 +1,4 @@
-# SCREAM AI Tools
+# SCREAM Tools
 
 Free, open-source [Claude Code](https://code.claude.com) tools for FRC robot programming teams.
 Use them, fork them, change them — they are MIT licensed.
@@ -50,7 +50,7 @@ pits, and it follows light/dark mode.
 
 ### How it works, and its limits
 
-It is a single Java file (`plugins/scream-ai-tools/skills/frc-visualize-code/scripts/FrcVisualize.java`)
+It is a single Java file (`plugins/scream-tools/skills/frc-visualize-code/scripts/FrcVisualize.java`)
 that reads your source with the JDK's own Java parser. **No downloads, no dependencies, no build**:
 it runs on the JDK the WPILib installer already put on your laptop, and it works even when the
 project does not compile. The same code always produces the same map, so a committed map only
@@ -88,14 +88,14 @@ not edit robot code and does not commit unless you ask.
 In Claude Code:
 
 ```
-/plugin marketplace add brsnell/scream-ai-tools
-/plugin install scream-ai-tools@scream-ai-tools
+/plugin marketplace add brsnell/scream-tools
+/plugin install scream-tools@scream-tools
 ```
 
 Then, in your robot project:
 
 ```
-/scream-ai-tools:frc-visualize-code
+/scream-tools:frc-visualize-code
 ```
 
 Plugin skills are namespaced by the plugin name. Claude Code may also accept the short form
@@ -103,7 +103,7 @@ Plugin skills are namespaced by the plugin name. Claude Code may also accept the
 
 ### Or copy the skill into one project
 
-Copy `plugins/scream-ai-tools/skills/frc-visualize-code/` into your robot project at
+Copy `plugins/scream-tools/skills/frc-visualize-code/` into your robot project at
 `.claude/skills/frc-visualize-code/`. It then runs as `/frc-visualize-code`.
 
 ---
@@ -119,10 +119,10 @@ Clone or download this repository once, then from your robot project folder:
 
 ```bash
 # macOS, Linux, or Git Bash on Windows (finds the WPILib JDK for you)
-path/to/scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/run.sh
+path/to/scream-tools/plugins/scream-tools/skills/frc-visualize-code/scripts/run.sh
 
 # or anywhere, with any JDK 17+ on your PATH (works in Windows PowerShell too)
-java path/to/scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/FrcVisualize.java
+java path/to/scream-tools/plugins/scream-tools/skills/frc-visualize-code/scripts/FrcVisualize.java
 ```
 
 Then open `docs/projVisu/index.html` in a browser.
