@@ -1,4 +1,4 @@
-# SCREAM AI Tools — keep a robot project's code map up to date, without AI.
+# SCREAM Tools — keep a robot project's code map up to date, without AI.
 #
 # Copy this file into YOUR ROBOT PROJECT as .github/workflows/frc-visualize-code.yml.
 # On every push to main that changes robot code, it regenerates docs/projVisu/ (HTML page, SVG
@@ -36,13 +36,13 @@ jobs:
       - name: Check out the robot project
         uses: actions/checkout@v4
 
-      - name: Check out SCREAM AI Tools
+      - name: Check out SCREAM Tools
         uses: actions/checkout@v4
         with:
-          repository: brsnell/scream-ai-tools
+          repository: brsnell/scream-tools
           # For a map that never changes because the tool changed, pin this to a commit SHA.
           ref: main
-          path: .scream-ai-tools
+          path: .scream-tools
 
       - name: Set up a JDK
         uses: actions/setup-java@v4
@@ -54,9 +54,9 @@ jobs:
 
       - name: Generate the code map
         run: |
-          java .scream-ai-tools/plugins/scream-ai-tools/skills/frc-visualize-code/scripts/FrcVisualize.java \
+          java .scream-tools/plugins/scream-tools/skills/frc-visualize-code/scripts/FrcVisualize.java \
             --project . --out docs/projVisu
-          rm -rf .scream-ai-tools
+          rm -rf .scream-tools
 
       - name: Commit the map if it changed
         run: |

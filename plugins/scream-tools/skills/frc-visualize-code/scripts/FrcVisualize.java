@@ -1,4 +1,4 @@
-// SCREAM AI Tools — frc-visualize-code
+// SCREAM Tools — frc-visualize-code
 // SPDX-License-Identifier: MIT
 //
 // Maps the structure of an FRC (WPILib) Java robot project, starting from Robot.java, and writes
@@ -1605,7 +1605,7 @@ public class FrcVisualize {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Robot Code Map</title>
-        <meta name="generator" content="SCREAM AI Tools frc-visualize-code">
+        <meta name="generator" content="SCREAM Tools frc-visualize-code">
         <style>
         :root{--bg:#ffffff;--fg:#1f2328;--mut:#59636e;--bd:#d1d9e0;--panel:#f6f8fa;--acc:#0969da;--chip:#eef1f4}
         @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1117;--fg:#e6edf3;--mut:#9198a1;

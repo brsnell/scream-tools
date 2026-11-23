@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SCREAM AI Tools — frc-visualize-code launcher
+# SCREAM Tools — frc-visualize-code launcher
 # SPDX-License-Identifier: MIT
 #
 # Finds a JDK (17 or newer) and runs FrcVisualize.java with the source-file launcher. No network,
