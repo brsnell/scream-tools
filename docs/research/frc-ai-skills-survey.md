@@ -120,10 +120,7 @@ These repositories exist to share FRC/FTC skills or agent tooling with other tea
 | [Filip-Kin/CTRE-Skill](https://github.com/Filip-Kin/CTRE-Skill) | Claude Code skill for CTRE Phoenix 6 Java. | `phoenix6-frc` |
 | [DDguan2010/frc-code-skill](https://github.com/DDguan2010/frc-code-skill) | FRC Java skill with code style, architecture and workflow references. | single skill plus references |
 | [Warren-Warbots/FRC-skills](https://github.com/Warren-Warbots/FRC-skills) | Reads and analyzes WPILib and hoot logs. | `FRCLogReader` |
-| [bullbots/frc-claude-skills](https://github.com/bullbots/frc-claude-skills) | Skills to help Claude debug and write better robot code. | – |
-| [jgermita/magic-prompts-frc](https://github.com/jgermita/magic-prompts-frc) | Prompts and skills for agents working on FRC code. | – |
-| [FutureShock7130/AI-resources](https://github.com/FutureShock7130/AI-resources) | Guidelines and skill files for agentic FRC coding. | – |
-| [sallyluenoa/FRClaudeSkills](https://github.com/sallyluenoa/FRClaudeSkills) | Personal FRC Claude Code skills, installed by symlink. | – |
+| [FutureShock7130/AI-resources](https://github.com/FutureShock7130/AI-resources) | Guides for novice FRC students using AI coding agents. Skills are still on its roadmap. | none yet |
 | [thehomelessguy/MARSLib](https://github.com/thehomelessguy/MARSLib) | FRC library that ships agent skills for using it. | `marslib`, `marslib-mechanisms`, `marslib-swerve`, `marslib-vision`, `marslib-autonomous`, `marslib-statemachine`, `marslib-control-theory`, `marslib-telemetry`, `marslib-testing`, `marslib-diagnostics`, `marslib-network`, `marslib-math`, `marslib-ci` |
 | [Hemlock5712/2027-Template](https://github.com/Hemlock5712/2027-Template) | WPILib 2027 robot template that includes Claude skills. | `robot-description`, `add-a-mechanism`, `build-and-deploy`, `run-sim`, `log-reading`, `game-info`, `teaching` |
 | [brsnell/scream-tools](https://github.com/brsnell/scream-tools) | This repository. | `frc-visualize-code` |
